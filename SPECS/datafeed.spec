@@ -26,10 +26,10 @@ done
 /appli/sshkeys/
 /appli/FTP/
 
-%clean
-if [ -d ${RPM_BUILD_DIR} ]; then
-  rm -rf ${RPM_BUILD_DIR}
-fi
+# %clean
+# if [ -d ${RPM_BUILD_DIR} ]; then
+#   rm -rf ${RPM_BUILD_DIR}
+# fi
 
 %pre
 mkdir -p /appli/sshkeys
