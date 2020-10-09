@@ -1,4 +1,9 @@
 pipeline {
+  node('label'){
+    //now you are on slave labeled with 'label'
+    def workspace = /var/lib/jenkins/workspace/Datafeed Pipeline
+    //${workspace} will now contain an absolute path to job workspace on slave 
+  }
   agent any
   stages {
     stage('Checkout Scm') {
