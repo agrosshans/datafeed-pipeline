@@ -1,14 +1,9 @@
 pipeline {
-  node('label'){
-    //now you are on slave labeled with 'label'
-    def workspace = /var/lib/jenkins/workspace/Datafeed_Pipeline  
-    //${workspace} will now contain an absolute path to job workspace on slave 
-  }
   agent any 
   stages {
     stage('Checkout Scm') {
       steps {
-        checkout([$class: 'GitSCM', branches: [[name: '*/main']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: '2d203f30-8573-4625-ad33-33d5a2748d9f', url: 'https://github.com/agrosshans/datafeed-pipeline.git']]])
+        checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: '2d203f30-8573-4625-ad33-33d5a2748d9f', url: 'https://github.com/agrosshans/datafeed-pipeline.git']]])
       }
     }
 
@@ -16,17 +11,29 @@ pipeline {
       steps {
         sh (returnStdout: true, script: '''
         if [ -d /var/lib/jenkins/workspace/Datafeed_Pipeline ]; then
+          echo `pwd`
           cd /var/lib/jenkins/workspace/Datafeed_Pipeline
-          /bin/rpmbuild --sign --define '_topdir /var/lib/jenkins/workspace/Datafeed_Pipeline' -ba -vv SPECS/datafeed.spec
+          /bin/rpmbuild --sign --define "_topdir /var/lib/jenkins/workspace/Datafeed_Pipeline" -ba -vv SPECS/datafeed.spec
         fi
         '''.stripIndent())
+      }
+    }
+    
+    stage('Pushing RPM') {
+      steps {
+        sh (returnStdout: true, script: '''
+        if [ -d /var/lib/jenkins/workspace/Datafeed_Pipeline/RPMS/x86_64 ]; then
+          cd /var/lib/jenkins/workspace/Datafeed_Pipeline/RPMS/x86_64
+          find . -name "*rpm" | xargs rhnpush --channel=datafeed --server=http://spacewalk.lanathome.com/APP -v --tolerant -u datafeed -p datafeed
+      fi
+      '''.stripIndent())
       }
     }
 
   }
   post {
     always {
-      echo 'No converter for Publisher: jenkins.plugins.rhnpush.RhnPush'
+      echo 'datafeed package is now available for install with yum update datafeed'
     }
 
   }
