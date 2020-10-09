@@ -1,7 +1,7 @@
 # rpm build settings
 
 # directory overrides
-%_topdir         /var/lib/jenkins/workspace/Datafeed Pipeline/
+%_topdir         /var/lib/jenkins/workspace/Datafeed_Pipeline/
 %_tmppath        %(echo $HOME)/rpmbuild/tmp
 
 # package signature add automatically (name as assigned, for example, by GnuPG)
