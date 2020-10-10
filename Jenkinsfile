@@ -29,7 +29,12 @@ pipeline {
       '''.stripIndent())
       }
     }
-
+    
+    stage('Invoque Ansible Tower for datafeed package update') {
+      steps {
+        ansibleTower jobTemplate: 'deploy_datafeed', jobType: 'run', limit: 'docker04.lanathome.com', throwExceptionWhenFail: false, towerCredentialsId: '1117d6d6-3ac7-4181-8796-7ab2c9a8cee4', towerLogLevel: 'full', towerServer: 'awx01.lanathome.com', verbose: true
+      }
+    }
   }
   post {
     always {
