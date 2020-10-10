@@ -64,5 +64,5 @@ done
     - Updated to ver. 1.4. Add user4
   * Sat Oct 10 2020 Aurelien Grosshans <ngr@ubp.ch>
     - Updated to ver. 1.5. Add user5
-  * Sat Oct 10 2020 Aurelien Grosshans <ngr@ubp.ch>
+  * Sat Oct 10 2020 08:52 Aurelien Grosshans <ngr@ubp.ch>
     - Updated to ver. 1.6. Add user6
