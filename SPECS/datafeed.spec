@@ -1,6 +1,6 @@
 Name:       datafeed
 Version:    1
-Release:    4%{?dist}
+Release:    5%{?dist}
 Summary:    datafeed
 License:    FIXME
 
@@ -62,3 +62,5 @@ done
     - Updated to ver. 1.3. Add user3
   * Sat Oct 10 2020 Aurelien Grosshans <ngr@ubp.ch>
     - Updated to ver. 1.4. Add user4
+  * Sat Oct 10 2020 Aurelien Grosshans <ngr@ubp.ch>
+    - Updated to ver. 1.5. Add user5
